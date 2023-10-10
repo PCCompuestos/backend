@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const Item = require('./vos/example'); // Value Object
+const User = require('./vos/userVO'); // Value Object
 
 const pool = new Pool({
     user: 'un5crkmm1qpme9gocm5m',
@@ -9,8 +9,8 @@ const pool = new Pool({
     port: 5432,
 });
 
-class ItemDAO {
-    static async create(name, description) {
+class UserDAO {
+    /*static async create(name, description) {
         const query = 'INSERT INTO items (name, description) VALUES ($1, $2) RETURNING *';
         const values = [name, description];
         try {
@@ -20,16 +20,16 @@ class ItemDAO {
         } catch (error) {
             throw error;
         }
-    }
+    }*/
 
     static async getById(id) {
-        const query = 'SELECT * FROM items WHERE id = $1';
+        const query = 'SELECT * FROM User WHERE ID = $1';
         const values = [id];
         try {
             const result = await pool.query(query, values);
-            const itemData = result.rows[0];
-            if (!itemData) return null;
-            return new Item(itemData.id, itemData.name, itemData.description);
+            const data = result.rows[0];
+            if (!data) return null;
+            return new Item(data.id, data.name, data.description);
         } catch (error) {
             throw error;
         }
@@ -38,4 +38,4 @@ class ItemDAO {
     // Implement update and delete methods similarly
 }
 
-module.exports = ItemDAO;
+module.exports = UserDAO;

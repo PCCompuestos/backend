@@ -2,7 +2,7 @@ POSTGRESQL_ADDON_HOST=bwo6ya4ml445rwn58lo2-postgresql.services.clever-cloud.com
 POSTGRESQL_ADDON_DB=bwo6ya4ml445rwn58lo2
 POSTGRESQL_ADDON_USER=un5crkmm1qpme9gocm5m
 POSTGRESQL_ADDON_PORT=5432
-POSTGRESQL_ADDON_PASSWORD=LawBldiV0aK84bgsx7xq0oKwpSK8BT
+POSTGRESQL_ADDON_PASSWORD = LawBldiV0aK84bgsx7xq0oKwpSK8BT
 POSTGRESQL_ADDON_URI=postgresql://un5crkmm1qpme9gocm5m:LawBldiV0aK84bgsx7xq0oKwpSK8BT@bwo6ya4ml445rwn58lo2-postgresql.services.clever-cloud.com:5432/bwo6ya4ml445rwn58lo2
 
 psql -h bwo6ya4ml445rwn58lo2-postgresql.services.clever-cloud.com -p 5432 -U un5crkmm1qpme9gocm5m -d bwo6ya4ml445rwn58lo2

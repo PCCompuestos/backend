@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-const Item = require('./vo'); // Value Object
+const Item = require('./vos/example'); // Value Object
 
 const pool = new Pool({
     user: 'un5crkmm1qpme9gocm5m',

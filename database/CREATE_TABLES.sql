@@ -1,5 +1,14 @@
 
 
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS has_in_shopping_cart;
+DROP TABLE IF EXISTS Product;
+DROP TABLE IF EXISTS Order;
+DROP TABLE IF EXISTS contains;
+DROP TABLE IF EXISTS Category;
+DROP TABLE IF EXISTS Component;
+DROP TABLE IF EXISTS consists_of;
+
 CREATE TABLE User (
     ID          NUMERIC(9),
     name        VARCHAR(25),
@@ -41,6 +50,7 @@ CREATE TABLE Order (
 CREATE TABLE contains (
     orderID     NUMERIC(9),
     productID   NUMERIC(9),
+    quantity    NUMERIC(9),
     PRIMARY KEY (orderID, productID),
     FOREIGN KEY (orderID) REFERENCES Order(ID),
     FOREIGN KEY (productID) REFERENCES Product(ID)

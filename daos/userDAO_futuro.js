@@ -45,6 +45,7 @@ class UserDAO {
       VALUES ($1, $2, $3, $4, $5)
     `;
 
+    // En lugar de usar user.name, utilizar un getter getName() del VO
     const values = [user.name, user.password, user.isAdmin, user.email, user.address];
 
     this.client.query(sql, values)
@@ -60,7 +61,7 @@ class UserDAO {
       .catch(err => console.error('Error getting user by ID', err));
   }
 
-  // Otros métodos según tus necesidades...
+  // Otros métodos según lo que necesitemos...
 
   closeConnection() {
     this.client.end()

@@ -1,9 +1,8 @@
-class Item {
-    constructor(id, name, description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
+class Consists_of {
+    constructor(componentCode, productID) {
+        this.componentCode = componentCode;
+        this.productID = productID;
     }
 }
 
-module.exports = Item;
+module.exports = Consists_of;

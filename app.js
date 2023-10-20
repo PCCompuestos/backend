@@ -1,9 +1,20 @@
 const express = require('express');
 const app = express();
 const port = 3001;
-const UserDAO = require('./dao');
 
-const userDAO = new UserDAO();
+const users = require('./routes/userRoutes');
+
+app.use('/', users);
+
+// Cierra el pool de conexiones cuando la aplicación termina
+/*process.on('SIGINT', () => {
+  pool.end(() => {
+    console.log('Desconectado del servidor PostgreSQL');
+    process.exit(0);
+  });
+});
+
+const userDAO = new UserDAO(pool);
 
 
 app.use(express.json());
@@ -16,7 +27,7 @@ app.get('/', async (req, res) => {
       res.status(500).send('Error interno del servidor');
     }
 });
-  
+
 
 app.get('/user/:id', async (req, res) => {
     const userId = req.params.id;
@@ -30,7 +41,7 @@ app.get('/user/:id', async (req, res) => {
     } catch (error) {
       res.status(500).send('Error interno del servidor');
     }
-});
+});*/
   
 
 // app.post('/items', async (req, res) => {

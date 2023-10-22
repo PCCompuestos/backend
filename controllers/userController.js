@@ -1,10 +1,10 @@
 const db = require('../db');
 
 // Operación CRUD: Create
-/*const createUser = async (user) => {
-  const result = await db.query('INSERT INTO Users(name, password, isAdmin, email, address) VALUES($1, $2, $3, $4, $5) RETURNING *', [user.name, user.password, user.isAdmin, user.email, user.address]);
-  return result.rows[0];
-}*/
+const createUser = async (name, password, isAdmin, email, address) => {
+  const result = await db.query('INSERT INTO Users(name, password, isAdmin, email, address) VALUES($1, $2, $3, $4, $5) RETURNING *', [name, password, isAdmin, email, address]);
+  return result;
+}
 
 // Operación CRUD: Read_1
 const getAllUsers = async () => {
@@ -43,5 +43,6 @@ async deleteUser(userId) {
 // Otros métodos según nusetras necesidades...
 
 module.exports = {
+  createUser,
   getAllUsers
 };

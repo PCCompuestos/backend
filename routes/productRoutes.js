@@ -7,7 +7,7 @@ router.get('/products', async (req, res) => {
   res.send(result.rows)
 });
 
-router.get('/product/:id', async (req, res) => {
+router.get('/products/:id', async (req, res) => {
   const result = await query('SELECT * FROM Products WHERE id = $1', [req.params.id])
   res.send(result.rows[0])
 });

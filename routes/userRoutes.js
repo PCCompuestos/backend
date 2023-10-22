@@ -4,24 +4,41 @@ const user = require('../controllers/userController');
 
 router.use(express.json());
 
+// GET requests
 router.get('/users', async (req, res) => {
   res.send((await user.getAllUsers()).rows);
 });
 
 router.get('/users/:id', async (req, res) => {
-  res.send(await user.getUserById([req.params.id]));
+  res.send(await user.getUserById(req.params.id));
 });
 
-router.post('/users', async (req, res) => {
-  const { name, password, isAdmin, email, address } = req.body;
 
-  // Check request parameters (Añadir más checkeos)
-  if (!name || !password || !isAdmin || !email || !address) {
+// POST requests
+router.post('/users', async (req, res) => {
+  const { name, password, email, address } = req.body;
+
+  // Check request parameters (AÑADIR MÁS CHECKEOS!!!)
+  if (!name || !password || !email || !address) {
     return res.status(400).json({ message: 'Please provide name, password, and email.' });
   }
-  
-  // Insert user
-  res.send(await user.createUser(name, password, isAdmin, email, address));
+
+  res.send(await user.createUser(name, password, false, email, address));
 });
+
+
+// PUT requests
+router.put('/users/:id', async (req, res) => {
+  const { name, password, email, address } = req.body;
+
+  res.send(await user.updateUserById(req.params.id, name, password, email, address));
+});
+
+
+// DELETE requests
+router.delete('/users/:id', async (req, res) => {
+  res.send(await user.deleteUserById(req.params.id));
+});
+
 
 module.exports = router;

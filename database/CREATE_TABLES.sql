@@ -1,12 +1,6 @@
 
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS has_in_shopping_cart;
-DROP TABLE IF EXISTS Product;
-DROP TABLE IF EXISTS Orders;
-DROP TABLE IF EXISTS order_contains;
-DROP TABLE IF EXISTS Category;
-DROP TABLE IF EXISTS Component;
-DROP TABLE IF EXISTS consists_of;
+CREATE SEQUENCE userSeq start 1 increment 1;
+CREATE SEQUENCE productSeq start 1 increment 1;
 
 CREATE TABLE Users (
     ID          NUMERIC(9),
@@ -18,7 +12,7 @@ CREATE TABLE Users (
     PRIMARY KEY (ID)
 );
 
-CREATE TABLE Product (
+CREATE TABLE Products (
     ID          NUMERIC(9),
     name        VARCHAR(25),
     description VARCHAR(25),
@@ -33,7 +27,7 @@ CREATE TABLE has_in_shopping_cart (
     quantity    NUMERIC(9),
     PRIMARY KEY (userID, productID),
     FOREIGN KEY (userID) REFERENCES Users(ID),
-    FOREIGN KEY (productID) REFERENCES Product(ID)
+    FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
 
@@ -53,14 +47,14 @@ CREATE TABLE order_contains (
     quantity    NUMERIC(9),
     PRIMARY KEY (orderID, productID),
     FOREIGN KEY (orderID) REFERENCES Orders(ID),
-    FOREIGN KEY (productID) REFERENCES Product(ID)
+    FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
 CREATE TABLE Category (
     productID    NUMERIC(9),
     category     VARCHAR(25),
     PRIMARY KEY (productID, category),
-    FOREIGN KEY (productID) REFERENCES Product(ID)
+    FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
 CREATE TABLE Component (
@@ -75,5 +69,5 @@ CREATE TABLE consists_of (
     componentCode    NUMERIC(9),
     productID        NUMERIC(9),
     FOREIGN KEY (componentCode) REFERENCES Component(code),
-    FOREIGN KEY (productID) REFERENCES Product(ID)
+    FOREIGN KEY (productID) REFERENCES Products(ID)
 );

@@ -16,14 +16,15 @@ router.get('/users/:id', async (req, res) => {
 
 // POST requests
 router.post('/users', async (req, res) => {
-  const { name, password, email, address } = req.body;
+  /*const { name, password, email, address } = req.body;
 
   // Check request parameters (AÑADIR MÁS CHECKEOS!!!)
   if (!name || !password || !email || !address) {
     return res.status(400).json({ message: 'Please provide name, password, and email.' });
   }
 
-  res.send(await user.createUser(name, password, false, email, address));
+  res.send(await user.createUser(name, password, false, email, address));*/
+  res.send('Hola');
 });
 
 

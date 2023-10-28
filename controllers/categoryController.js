@@ -1,12 +1,12 @@
 const db = require('../db');
 
-const createCategory = async (userID, quantity, purchaseDate, purchaseTime) => {
-  const result = await db.query(`INSERT INTO Category(ID, userID, quantity, purchaseDate, purchaseTime) VALUES(nextval('OrderSeq'), $1, $2, $3, $4) RETURNING *`, [userID, quantity, purchaseDate, purchaseTime]);
+const createCategory = async (productID, category) => {
+  const result = await db.query(`INSERT INTO Category(productID, category) VALUES($1, $2) RETURNING *`, [productID, category]);
   return result;
 }
 
 // Operación CRUD: Read_1
-const getAllCategory = async () => {
+const getAllCategories = async () => {
   try {
     const result = await db.query('SELECT * FROM Category');
     return result;
@@ -17,35 +17,35 @@ const getAllCategory = async () => {
 }
 
 // Operación CRUD: Read_2
-const getOrderById = async (orderId) => {
-  try {
-    const result = await db.query('SELECT * FROM Category WHERE id = $1', [orderId]);
-    return result.rows[0];
-  } catch (error) {
-    console.error('Fatal error: ', error);
-    throw error;
-  }
-}
+// const getOrderById = async (orderId) => {
+//   try {
+//     const result = await db.query('SELECT * FROM Category WHERE id = $1', [orderId]);
+//     return result.rows[0];
+//   } catch (error) {
+//     console.error('Fatal error: ', error);
+//     throw error;
+//   }
+// }
 
 // Operación CRUD: Update
-const updateOrderById = async (ID, userID, quantity, purchaseDate, purchaseTime) => {
-  const result = await db.query('UPDATE Category SET userID = $2, quantity = $3, purchaseDate = $4, purchaseTime = $5 WHERE id = $1 RETURNING *', [ID, userID, quantity, purchaseDate, purchaseTime]);
+const updateCategoryById = async (productID, category) => {
+  const result = await db.query('UPDATE Category SET category = $2 WHERE productID = $1 RETURNING *', [productID, category]);
   return result.rows[0];
 }
 
 
 // Operación CRUD: Delete
-const deleteOrderById = async (orderId) => {
-  const result = await db.query('DELETE FROM Category WHERE id = $1 RETURNING *', [orderId]);
+const deleteCategoryById = async (productID) => {
+  const result = await db.query('DELETE FROM Category WHERE productID = $1 RETURNING *', [productID]);
   return result;
 }
 
 // Other methods...
 
 module.exports = {
-  createOrder,
+  createCategories,
   getAllCategory,
-  getOrderById,
-  updateOrderById,
-  deleteOrderById
+  // getCategoryById,
+  updateCategoryById,
+  deleteCategoryById
 };

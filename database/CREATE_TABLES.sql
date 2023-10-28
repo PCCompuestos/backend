@@ -2,6 +2,7 @@
 CREATE SEQUENCE userSeq start 1 increment 1;
 CREATE SEQUENCE productSeq start 1 increment 1;
 CREATE SEQUENCE oderSeq start 1 increment 1;
+CREATE SEQUENCE componentSeq start 1 increment 1;
 
 CREATE TABLE Users (
     ID          NUMERIC(9),

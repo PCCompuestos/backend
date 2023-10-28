@@ -3,7 +3,7 @@ INSERT INTO Users VALUES (1, 'admin', 'admin', true, 'admin@admin.com', 'c/Admin
 INSERT INTO Users VALUES (22, 'sin', 'chesuLover', false, 'javierito@putoUnai.com', 'c/Maria de Luna, 22');
 
 
-INSERT INTO Product VALUES (1, 'Producto 1', 'Descripción del prod 1', 10, 100);
+INSERT INTO Products VALUES (1, 'Producto 1', 'Descripción del prod 1', 10, 100);
 
 
 INSERT INTO has_in_shopping_cart VALUES (1, 1, 2);

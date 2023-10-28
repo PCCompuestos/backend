@@ -2,10 +2,10 @@ const { Pool } = require('pg');
  
 const pool = new Pool({
     user: 'un5crkmm1qpme9gocm5m',
-    host: 'bwo6ya4ml445rwn58lo2-postgresql.services.clever-cloud.com',
-    database: 'bwo6ya4ml445rwn58lo2',
+    host: 'blgkzo2j8cpkvlou2dav-postgresql.services.clever-cloud.com',
+    database: 'blgkzo2j8cpkvlou2dav',
     password: 'LawBldiV0aK84bgsx7xq0oKwpSK8BT',
-    port: 5432,
+    port: 50013,
 });
 
 const query = async (text, params) => {

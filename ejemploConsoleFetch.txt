@@ -1,0 +1,16 @@
+fetch('http://localhost:3001/users', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'John Doe',
+    password: 'securepassword',
+    isAdmin: false,
+    email: 'john@example.com',
+    address: '123 Main St'
+  })
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));

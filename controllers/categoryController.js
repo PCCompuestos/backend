@@ -43,8 +43,8 @@ const deleteCategoryById = async (productID) => {
 // Other methods...
 
 module.exports = {
-  createCategories,
-  getAllCategory,
+  createCategory,
+  getAllCategories,
   // getCategoryById,
   updateCategoryById,
   deleteCategoryById

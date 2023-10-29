@@ -22,6 +22,10 @@ router.post('/users', async (req, res) => {
   if (!name || !password || !email) {
     return res.status(400).json({ message: 'Please provide name, password, and email.' });
   }
+  let existingEmail = await user.getUserByEmail(email);
+  if (existingEmail != null) { // If existing email is not null, there is a user with that email
+    return res.status(400).json({ message: 'There is another user with the same email.' });
+  }
 
   res.send(await user.createUser(name, password, false, email, address));
 });

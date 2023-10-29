@@ -27,6 +27,16 @@ const getUserById = async (userId) => {
   }
 }
 
+const getUserByEmail = async (userEmail) => {
+  try {
+    const result = await db.query('SELECT * FROM Users WHERE email = $1', [userEmail]);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
+
 // Operación CRUD: Update
 const updateUserById = async (userId, name, password, email, address) => {
   const result = await db.query('UPDATE Users SET name = $2, password = $3, email = $4, address = $5 WHERE id = $1 RETURNING *', [userId, name, password, email, address]);
@@ -46,6 +56,7 @@ module.exports = {
   createUser,
   getAllUsers,
   getUserById,
+  getUserByEmail,
   updateUserById,
   deleteUserById
 };

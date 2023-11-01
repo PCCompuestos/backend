@@ -1,10 +1,11 @@
+const jwt = require('jsonwebtoken'); 
 const express = require('express');
-const router = express.Router();
 const user = require('../controllers/userController');
+
+const router = express.Router();
 
 router.use(express.json());
 
-// GET requests
 router.get('/users', async (req, res) => {
   res.send((await user.getAllUsers()).rows);
 });
@@ -13,8 +14,6 @@ router.get('/users/:id', async (req, res) => {
   res.send(await user.getUserById(req.params.id));
 });
 
-
-// POST requests
 router.post('/users', async (req, res) => {
   const { name, password, email, address } = req.body;
 
@@ -30,18 +29,21 @@ router.post('/users', async (req, res) => {
   res.send(await user.createUser(name, password, false, email, address));
 });
 
-
-// PUT requests
 router.put('/users/:id', async (req, res) => {
   const { name, password, email, address } = req.body;
 
   res.send(await user.updateUserById(req.params.id, name, password, email, address));
 });
 
-
-// DELETE requests
 router.delete('/users/:id', async (req, res) => {
   res.send(await user.deleteUserById(req.params.id));
+});
+
+router.delete('/users/login', async (req, res) => {
+  const { email, password } = req.body;
+  const token = jwt.sign({email: email, password: password}, 'SECRET_KEY');
+  res.send(token);
+  //res.send(await user.login(req.params.id));
 });
 
 

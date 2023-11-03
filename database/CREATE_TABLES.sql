@@ -7,7 +7,7 @@ CREATE SEQUENCE componentSeq start 1 increment 1;
 CREATE TABLE Users (
     ID          NUMERIC(9),
     name        VARCHAR(25),
-    password    VARCHAR(25),
+    password    VARCHAR(100),
     isAdmin     BOOLEAN,
     email       VARCHAR(25),
     address     VARCHAR(25),

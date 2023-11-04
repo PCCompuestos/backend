@@ -32,7 +32,7 @@ CREATE TABLE has_in_shopping_cart (
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
-CREATE TYPE estado_pedido AS ENUM ('Sin preparar', 'En preparación', 'Enviado', 'Entregado');
+CREATE TYPE order_status AS ENUM ('Not prepared', 'In preparation', 'Sent', 'Delivered');
 
 CREATE TABLE Orders (
     ID           NUMERIC(9),
@@ -40,7 +40,7 @@ CREATE TABLE Orders (
     quantity     NUMERIC(9) NOT NULL,
     purchaseDate DATE NOT NULL,
     purchaseTime TIME NOT NULL,
-    status       estado_pedido DEFAULT 'Sin preparar'::estado_pedido NOT NULL,
+    status       order_status NOT NULL,
     PRIMARY KEY  (ID),
     FOREIGN KEY  (userID) REFERENCES Users(ID)
 );

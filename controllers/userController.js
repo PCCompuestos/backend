@@ -1,17 +1,18 @@
 const jwt = require('jsonwebtoken'); 
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 const db = require('../db');
 
 const saltRounds = 10;
 
 const createUser = async (name, password, isAdmin, email, address) => {
-  bcrypt.hash(password, saltRounds, async (err, hash) => {
+  /*bcrypt.hash(password, saltRounds, async (err, hash) => {
     if (err) {
       return err;
     } else {
       return await db.query(`INSERT INTO Users(id, name, password, isAdmin, email, address) VALUES(nextval('userSeq'), $1, $2, $3, $4, $5) RETURNING *`, [name, hash, isAdmin, email, address]);
     }
-  });
+  });*/
+  return await db.query(`INSERT INTO Users(id, name, password, isAdmin, email, address) VALUES(nextval('userSeq'), $1, $2, $3, $4, $5) RETURNING *`, [name, password, isAdmin, email, address]);
 }
 
 const getAllUsers = async () => {
@@ -57,7 +58,7 @@ const deleteUserById = async (userId) => {
 const login = async (email, enteredPassword) => {
   try {
     const { id, password: storedPassword } = await getUserByEmail(email);
-    const result = await new Promise((resolve, reject) => {
+    /*const result = await new Promise((resolve, reject) => {
       bcrypt.compare(enteredPassword, storedPassword, (err, result) => {
         if (err) {
           reject(err);
@@ -69,7 +70,10 @@ const login = async (email, enteredPassword) => {
         }
       });
     });
-    return result;
+    return result;*/
+    // ALERTA: MIRAR QUE EL PASSWORD COINCIDA
+    const token = jwt.sign({ id: id }, 'SECRET_KEY', { expiresIn: '1h' });
+    return token;
   } catch (error) {
     throw error;
   }

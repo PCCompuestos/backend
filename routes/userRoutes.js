@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken'); 
 const express = require('express');
 const user = require('../controllers/userController');
 
@@ -39,12 +38,9 @@ router.delete('/users/:id', async (req, res) => {
   res.send(await user.deleteUserById(req.params.id));
 });
 
-router.delete('/users/login', async (req, res) => {
+router.post('/users/login', async (req, res) => {
   const { email, password } = req.body;
-  const token = jwt.sign({email: email, password: password}, 'SECRET_KEY');
-  res.send(token);
-  //res.send(await user.login(req.params.id));
+  res.send(await user.login(email, password));
 });
-
 
 module.exports = router;

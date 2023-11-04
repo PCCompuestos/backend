@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken'); 
 const bcrypt = require('bcrypt');
 const db = require('../db');
 
@@ -53,6 +54,27 @@ const deleteUserById = async (userId) => {
   return result;
 }
 
+const login = async (email, enteredPassword) => {
+  try {
+    const { id, password: storedPassword } = await getUserByEmail(email);
+    const result = await new Promise((resolve, reject) => {
+      bcrypt.compare(enteredPassword, storedPassword, (err, result) => {
+        if (err) {
+          reject(err);
+        } else if (result) {
+          const token = jwt.sign({ id: id }, 'SECRET_KEY', { expiresIn: '1h' });
+          resolve(token);
+        } else {
+          resolve('incorrect email or password');
+        }
+      });
+    });
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 // Other methods...
 
 module.exports = {
@@ -61,5 +83,6 @@ module.exports = {
   getUserById,
   getUserByEmail,
   updateUserById,
-  deleteUserById
+  deleteUserById,
+  login
 };

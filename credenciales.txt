@@ -4,4 +4,3 @@ POSTGRESQL_ADDON_USER=un5crkmm1qpme9gocm5m
 POSTGRESQL_ADDON_PORT=50013
 POSTGRESQL_ADDON_PASSWORD=LawBldiV0aK84bgsx7xq0oKwpSK8BT
 POSTGRESQL_ADDON_URI=postgresql://un5crkmm1qpme9gocm5m:LawBldiV0aK84bgsx7xq0oKwpSK8BT@blgkzo2j8cpkvlou2dav-postgresql.services.clever-cloud.com:5432/blgkzo2j8cpkvlou2dav
-

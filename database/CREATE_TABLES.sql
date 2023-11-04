@@ -5,40 +5,42 @@ CREATE SEQUENCE oderSeq start 1 increment 1;
 CREATE SEQUENCE componentSeq start 1 increment 1;
 
 CREATE TABLE Users (
-    ID          NUMERIC(9),
-    name        VARCHAR(25),
-    password    VARCHAR(100),
-    isAdmin     BOOLEAN,
-    email       VARCHAR(25),
+    ID          NUMERIC(9) NOT NULL,
+    name        VARCHAR(25) NOT NULL,
+    password    VARCHAR(100) NOT NULL,
+    isAdmin     BOOLEAN NOT NULL,
+    email       VARCHAR(25) NOT NULL,
     address     VARCHAR(25),
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE Products (
     ID          NUMERIC(9),
-    name        VARCHAR(25),
+    name        VARCHAR(25) NOT NULL,
     description VARCHAR(25),
-    quantity    NUMERIC(9),
-    price       NUMERIC(9),
+    quantity    NUMERIC(9) NOT NULL,
+    price       NUMERIC(9) NOT NULL,
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE has_in_shopping_cart (
     userID      NUMERIC(9),
     productID   NUMERIC(9),
-    quantity    NUMERIC(9),
+    quantity    NUMERIC(9) NOT NULL,
     PRIMARY KEY (userID, productID),
     FOREIGN KEY (userID) REFERENCES Users(ID),
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
+CREATE TYPE estado_pedido AS ENUM ('Sin preparar', 'En preparación', 'Enviado', 'Entregado');
 
 CREATE TABLE Orders (
     ID           NUMERIC(9),
-    userID       NUMERIC(9),
-    quantity     NUMERIC(9),
-    purchaseDate DATE,
-    purchaseTime TIME,
+    userID       NUMERIC(9) NOT NULL,
+    quantity     NUMERIC(9) NOT NULL,
+    purchaseDate DATE NOT NULL,
+    purchaseTime TIME NOT NULL,
+    status       estado_pedido DEFAULT 'Sin preparar'::estado_pedido NOT NULL,
     PRIMARY KEY  (ID),
     FOREIGN KEY  (userID) REFERENCES Users(ID)
 );
@@ -46,7 +48,7 @@ CREATE TABLE Orders (
 CREATE TABLE order_contains (
     orderID     NUMERIC(9),
     productID   NUMERIC(9),
-    quantity    NUMERIC(9),
+    quantity    NUMERIC(9) NOT NULL,
     PRIMARY KEY (orderID, productID),
     FOREIGN KEY (orderID) REFERENCES Orders(ID),
     FOREIGN KEY (productID) REFERENCES Products(ID)
@@ -61,15 +63,16 @@ CREATE TABLE Category (
 
 CREATE TABLE Component (
     code        NUMERIC(9),
-    name        VARCHAR(25),
-    quantity    NUMERIC(9),
-    price       NUMERIC(9),
+    name        VARCHAR(25) NOT NULL,
+    quantity    NUMERIC(9) NOT NULL,
+    price       NUMERIC(9) NOT NULL,
     PRIMARY KEY (code)
 );
 
 CREATE TABLE consists_of (
     componentCode    NUMERIC(9),
     productID        NUMERIC(9),
+    PRIMARY KEY (componentCode, productID),
     FOREIGN KEY (componentCode) REFERENCES Component(code),
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );

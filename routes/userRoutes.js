@@ -29,9 +29,9 @@ router.post('/users', async (req, res) => {
 });
 
 router.put('/users/:id', async (req, res) => {
-  const { name, password, email, address } = req.body;
+  const { name, password, isadmin, email, address } = req.body;
 
-  res.send(await user.updateUserById(req.params.id, name, password, email, address));
+  res.send(await user.updateUserById(req.params.id, name, password, isadmin, email, address));
 });
 
 router.delete('/users/:id', async (req, res) => {

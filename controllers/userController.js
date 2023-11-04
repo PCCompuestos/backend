@@ -45,8 +45,8 @@ const getUserByEmail = async (userEmail) => {
   }
 }
 
-const updateUserById = async (userId, name, password, email, address) => {
-  const result = await db.query('UPDATE Users SET name = $2, password = $3, email = $4, address = $5 WHERE id = $1 RETURNING *', [userId, name, password, email, address]);
+const updateUserById = async (userId, name, password, isadmin, email, address) => {
+  const result = await db.query('UPDATE Users SET name = $2, password = $3, isadmin = $4, email = $5, address = $6 WHERE id = $1 RETURNING *', [userId, name, password, isadmin, email, address]);
   return result.rows[0];
 }
 

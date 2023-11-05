@@ -14,6 +14,7 @@ CREATE TABLE Users (
     PRIMARY KEY (ID)
 );
 
+-- AÑADIR CAMPOS PARA LAS CARACTERÍSTICAS DE CADA PRODUCTO: Cpu, Ram, etc.
 CREATE TABLE Products (
     ID          NUMERIC(9),
     name        VARCHAR(25) NOT NULL,

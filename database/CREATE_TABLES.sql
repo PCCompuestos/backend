@@ -31,8 +31,7 @@ CREATE TABLE Products (
     description VARCHAR(25),
     quantity    NUMERIC(9) NOT NULL,
     price       NUMERIC(9) NOT NULL,
-
-    URL         VARCHAR(50) NOT NULL UNIQUE,
+    url         VARCHAR(50) NOT NULL UNIQUE,
     image       VARCHAR(50) NOT NULL
 );
 

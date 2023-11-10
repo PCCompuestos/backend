@@ -16,14 +16,14 @@ router.get('/products/:id', async (req, res) => {
 
 // POST requests
 router.post('/products', async (req, res) => {
-  const { name, description, quantity, price } = req.body;
+  const { name, description, quantity, price, url, image} = req.body;
 
   // Check request parameters (AÑADIR MÁS CHECKEOS!!!)
   // if (!name || !password || !email || !address) {
   //   return res.status(400).json({ message: 'Please provide name, password, and email.' });
   // }
 
-  res.send(await product.createProduct(name, description, quantity, price));
+  res.send(await product.createProduct(name, description, quantity, price, url, image));
 });
 
 

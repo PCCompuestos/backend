@@ -1,7 +1,7 @@
 const db = require('../db');
 
-const createProduct = async (name, description, quantity, price) => {
-  const result = await db.query(`INSERT INTO Products(id, name, description, quantity, price) VALUES(nextval('productSeq'), $1, $2, $3, $4) RETURNING *`, [name, description, quantity, price]);
+const createProduct = async (name, description, quantity, price, url, image) => {
+  const result = await db.query(`INSERT INTO Products(id, name, description, quantity, price, URL, image) VALUES(nextval('productSeq'), $1, $2, $3, $4, $5, $6) RETURNING *`, [name, description, quantity, price, url, image]);
   return result;
 }
 

@@ -15,12 +15,20 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE Products (
-    ID          NUMERIC(9),
+    ID          NUMERIC(9) PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
     description VARCHAR(25),
     quantity    NUMERIC(9) NOT NULL,
     price       NUMERIC(9) NOT NULL,
-    PRIMARY KEY (ID)
+    CPU         VARCHAR(25),
+    GPU         VARCHAR(25),
+    RAM         VARCHAR(25),
+    motherboard VARCHAR(25),
+    storage     VARCHAR(25),
+    powerSupply VARCHAR(25),
+    case        VARCHAR(25),
+    cooling     VARCHAR(25),
+    other       VARCHAR(25)
 );
 
 CREATE TABLE has_in_shopping_cart (

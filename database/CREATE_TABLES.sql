@@ -5,24 +5,22 @@ CREATE SEQUENCE orderSeq start 1 increment 1;
 CREATE SEQUENCE componentSeq start 1 increment 1;
 
 CREATE TABLE Users (
-    ID          NUMERIC(9) NOT NULL,
+    ID          NUMERIC(9) PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
     password    VARCHAR(100) NOT NULL,
     isAdmin     BOOLEAN NOT NULL,
     email       VARCHAR(25) NOT NULL,
-    address     VARCHAR(25),
-    PRIMARY KEY (ID)
+    address     VARCHAR(25)
 );
 
 CREATE TYPE component_type AS ENUM ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 'Power supply', 'Case', 'Cooling', 'Other');
 
 CREATE TABLE Component (
-    code        NUMERIC(9),
+    ID          NUMERIC(9) PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
     quantity    NUMERIC(9) NOT NULL,
     price       NUMERIC(9) NOT NULL,
-    type        component_type NOT NULL,
-    PRIMARY KEY (code)
+    type        component_type NOT NULL
 );
 
 CREATE TABLE Products (
@@ -47,12 +45,10 @@ CREATE TABLE has_in_shopping_cart (
 CREATE TYPE order_status AS ENUM ('Not prepared', 'In preparation', 'Sent', 'Delivered');
 
 CREATE TABLE Orders (
-    ID           NUMERIC(9),
+    ID           NUMERIC(9) PRIMARY KEY,
     userID       NUMERIC(9) NOT NULL,
-    quantity     NUMERIC(9) NOT NULL,
     purchaseDate TIMESTAMP NOT NULL,
     status       order_status NOT NULL,
-    PRIMARY KEY  (ID),
     FOREIGN KEY  (userID) REFERENCES Users(ID)
 );
 
@@ -73,9 +69,9 @@ CREATE TABLE Category (
 );
 
 CREATE TABLE consists_of (
-    componentCode    NUMERIC(9),
-    productID        NUMERIC(9),
-    PRIMARY KEY (componentCode, productID),
-    FOREIGN KEY (componentCode) REFERENCES Component(code),
+    componentID    NUMERIC(9),
+    productID      NUMERIC(9),
+    PRIMARY KEY (componentID, productID),
+    FOREIGN KEY (componentID) REFERENCES Component(ID),
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );

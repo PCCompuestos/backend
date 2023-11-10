@@ -5,9 +5,12 @@ DROP SEQUENCE IF EXISTS componentSeq;
 
 DROP TABLE IF EXISTS has_in_shopping_cart;
 DROP TABLE IF EXISTS consists_of;
-DROP TABLE IF EXISTS Component;
 DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS order_contains;
 DROP TABLE IF EXISTS Orders;
 DROP TABLE IF EXISTS Products;
+DROP TABLE IF EXISTS Component;
 DROP TABLE IF EXISTS Users;
+
+DROP TYPE IF EXISTS order_status;
+DROP TYPE IF EXISTS component_type;

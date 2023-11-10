@@ -1,7 +1,7 @@
 
 CREATE SEQUENCE userSeq start 1 increment 1;
 CREATE SEQUENCE productSeq start 1 increment 1;
-CREATE SEQUENCE oderSeq start 1 increment 1;
+CREATE SEQUENCE orderSeq start 1 increment 1;
 CREATE SEQUENCE componentSeq start 1 increment 1;
 
 CREATE TABLE Users (
@@ -14,21 +14,26 @@ CREATE TABLE Users (
     PRIMARY KEY (ID)
 );
 
+CREATE TYPE component_type AS ENUM ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 'Power supply', 'Case', 'Cooling', 'Other');
+
+CREATE TABLE Component (
+    code        NUMERIC(9),
+    name        VARCHAR(25) NOT NULL,
+    quantity    NUMERIC(9) NOT NULL,
+    price       NUMERIC(9) NOT NULL,
+    type        component_type NOT NULL,
+    PRIMARY KEY (code)
+);
+
 CREATE TABLE Products (
     ID          NUMERIC(9) PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
     description VARCHAR(25),
     quantity    NUMERIC(9) NOT NULL,
     price       NUMERIC(9) NOT NULL,
-    CPU         VARCHAR(25),
-    GPU         VARCHAR(25),
-    RAM         VARCHAR(25),
-    motherboard VARCHAR(25),
-    storage     VARCHAR(25),
-    powerSupply VARCHAR(25),
-    case        VARCHAR(25),
-    cooling     VARCHAR(25),
-    other       VARCHAR(25)
+
+    URL         VARCHAR(50) NOT NULL UNIQUE,
+    image       VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE has_in_shopping_cart (
@@ -66,17 +71,6 @@ CREATE TABLE Category (
     category     VARCHAR(25),
     PRIMARY KEY (productID, category),
     FOREIGN KEY (productID) REFERENCES Products(ID)
-);
-
-CREATE TYPE component_type AS ENUM ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 'Power supply', 'Case', 'Cooling', 'Other');
-
-CREATE TABLE Component (
-    code        NUMERIC(9),
-    name        VARCHAR(25) NOT NULL,
-    quantity    NUMERIC(9) NOT NULL,
-    price       NUMERIC(9) NOT NULL,
-    type        component_type NOT NULL,
-    PRIMARY KEY (code)
 );
 
 CREATE TABLE consists_of (

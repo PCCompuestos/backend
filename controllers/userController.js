@@ -57,7 +57,8 @@ const deleteUserById = async (userId) => {
 
 const login = async (email, enteredPassword) => {
   try {
-    const { id, password: storedPassword } = await getUserByEmail(email);
+    const user = await getUserByEmail(email);
+    const { id, password: storedPassword } = user;
     /*const result = await new Promise((resolve, reject) => {
       bcrypt.compare(enteredPassword, storedPassword, (err, result) => {
         if (err) {

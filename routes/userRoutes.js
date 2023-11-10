@@ -1,16 +1,13 @@
 const express = require('express');
 const user = require('../controllers/userController');
+const { verifyToken } = require('../auth');
 
 const router = express.Router();
-
 router.use(express.json());
 
-router.get('/users', async (req, res) => {
-  res.send((await user.getAllUsers()).rows);
-});
-
-router.get('/users/:id', async (req, res) => {
-  res.send(await user.getUserById(req.params.id));
+router.post('/users/login', async (req, res) => {
+  const { email, password } = req.body;
+  res.send(await user.login(email, password));
 });
 
 router.post('/users', async (req, res) => {
@@ -28,6 +25,17 @@ router.post('/users', async (req, res) => {
   res.send(await user.createUser(name, password, false, email, address));
 });
 
+// From here the request must have a valid token
+router.use(verifyToken);
+
+router.get('/users', async (req, res) => {
+  res.send((await user.getAllUsers()).rows);
+});
+
+router.get('/users/:id', async (req, res) => {
+  res.send(await user.getUserById(req.params.id));
+});
+
 router.put('/users/:id', async (req, res) => {
   const { name, password, isadmin, email, address } = req.body;
 
@@ -36,11 +44,6 @@ router.put('/users/:id', async (req, res) => {
 
 router.delete('/users/:id', async (req, res) => {
   res.send(await user.deleteUserById(req.params.id));
-});
-
-router.post('/users/login', async (req, res) => {
-  const { email, password } = req.body;
-  res.send(await user.login(email, password));
 });
 
 module.exports = router;

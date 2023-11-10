@@ -14,7 +14,6 @@ CREATE TABLE Users (
     PRIMARY KEY (ID)
 );
 
--- AÑADIR CAMPOS PARA LAS CARACTERÍSTICAS DE CADA PRODUCTO: Cpu, Ram, etc.
 CREATE TABLE Products (
     ID          NUMERIC(9),
     name        VARCHAR(25) NOT NULL,
@@ -39,8 +38,7 @@ CREATE TABLE Orders (
     ID           NUMERIC(9),
     userID       NUMERIC(9) NOT NULL,
     quantity     NUMERIC(9) NOT NULL,
-    purchaseDate DATE NOT NULL,
-    purchaseTime TIME NOT NULL,
+    purchaseDate TIMESTAMP NOT NULL,
     status       order_status NOT NULL,
     PRIMARY KEY  (ID),
     FOREIGN KEY  (userID) REFERENCES Users(ID)
@@ -62,11 +60,14 @@ CREATE TABLE Category (
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
+CREATE TYPE component_type AS ENUM ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 'Power supply', 'Case', 'Cooling', 'Other');
+
 CREATE TABLE Component (
     code        NUMERIC(9),
     name        VARCHAR(25) NOT NULL,
     quantity    NUMERIC(9) NOT NULL,
     price       NUMERIC(9) NOT NULL,
+    type        component_type NOT NULL,
     PRIMARY KEY (code)
 );
 

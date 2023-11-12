@@ -72,9 +72,16 @@ const login = async (email, enteredPassword) => {
       });
     });
     return result;*/
-    // ALERTA: MIRAR QUE EL PASSWORD COINCIDA
-    const token = jwt.sign({ id: id }, 'SECRET_KEY', { expiresIn: '1h' });
-    return token;
+    if (enteredPassword == storedPassword) {
+      const token = jwt.sign({ id: id }, 'SECRET_KEY', { expiresIn: '1h' });
+      const userWithoutPassword = {id: user.id, name: user.name, email: user.email, isAdmin: user.isadmin, address: user.address};
+      return {
+      	token: token,
+      	user: userWithoutPassword
+      };
+    } else {
+    	return "Password does not match"
+    }
   } catch (error) {
     throw error;
   }

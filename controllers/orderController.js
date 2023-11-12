@@ -33,6 +33,10 @@ const updateOrderById = async (ID, userID, quantity, purchaseDate, purchaseTime)
   return result.rows[0];
 }
 
+const updateOrderStatusById = async (id, status) => {
+  const result = await db.query('UPDATE Orders SET status = $2 WHERE id = $1 RETURNING *', [id, status]);
+  return result.rows[0];
+}
 
 // Operación CRUD: Delete
 const deleteOrderById = async (orderId) => {
@@ -47,5 +51,6 @@ module.exports = {
   getAllOrders,
   getOrderById,
   updateOrderById,
+  updateOrderStatusById,
   deleteOrderById
 };

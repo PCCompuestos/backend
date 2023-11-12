@@ -16,22 +16,27 @@ router.get('/orders/:id', async (req, res) => {
 
 // POST requests
 router.post('/orders', async (req, res) => {
-  const { userID, quantity, purchaseDate, purchaseTime } = req.body;
+  const { id, quantity, purchaseDate, purchaseTime } = req.body;
 
   // Check request parameters (AÑADIR MÁS CHECKEOS!!!)
   // if (!name || !password || !email || !address) {
   //   return res.status(400).json({ message: 'Please provide name, password, and email.' });
   // }
 
-  res.send(await order.createOrder(userID, quantity, purchaseDate, purchaseTime));
+  res.send(await order.createOrder(id, quantity, purchaseDate, purchaseTime));
 });
-
 
 // PUT requests
 router.put('/orders/:id', async (req, res) => {
   const { userID, quantity, purchaseDate, purchaseTime } = req.body;
 
   res.send(await order.updateOrderById(req.params.id, userID, quantity, purchaseDate, purchaseTime));
+});
+
+router.put('/orders/:id/setStatus', async (req, res) => {
+  const { id, status} = req.body;
+
+  res.send(await order.updateOrderStatusById(id, status));
 });
 
 

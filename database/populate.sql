@@ -6,17 +6,7 @@ VALUES
     (nextval('userSeq'), 'sin', 'anson', false, 'javierito@putoUnai.com', 'c/Maria de Luna, 22');
 
 -- Component
-INSERT INTO Component (ID, name, quantity, price, type) 
-VALUES 
-    (nextval('componentSeq'), 'Component1 CPU', 10, 100.5, 'CPU'),
-    (nextval('componentSeq'), 'Component2 GPU', 10, 100, 'GPU'),
-    (nextval('componentSeq'), 'Component3 RAM', 10, 100, 'RAM'),
-    (nextval('componentSeq'), 'Component4 Motherboard', 10, 100, 'Motherboard'),
-    (nextval('componentSeq'), 'Component5 Storage', 10, 100, 'Storage'),
-    (nextval('componentSeq'), 'Component6 Power', 10, 100, 'Power supply'),
-    (nextval('componentSeq'), 'Component7 Case', 10, 100, 'Case'),
-    (nextval('componentSeq'), 'Component8 Cooling', 10, 100, 'Cooling'),
-    (nextval('componentSeq'), 'Component9 other', 10, 100, 'Other');
+-- populate_component.sql
 
 -- Products
 INSERT INTO Products (ID, name, description, quantity, price, url, image) 
@@ -44,7 +34,7 @@ VALUES
     (1, 'Category1');
 
 -- consists_of
-INSERT INTO consists_of (componentCode, productID) 
+INSERT INTO consists_of (productID, componentID) 
 VALUES 
     (1, 1),
     (1, 2),

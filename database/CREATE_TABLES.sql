@@ -14,23 +14,29 @@ CREATE TABLE Users (
 );
 
 CREATE TYPE component_type AS ENUM 
-    ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 
-     'Power supply', 'Case', 'Cooling', 'Other');
+    ('procesador', 'grafica', 'ram', 'placa_base', 'disco_duro', 
+     'fuente_alimentacion', 'caja_torre', 'ventilador');
 
+
+-- id_producto, marca, modelo, precio, descuento, descripcion, stock, ventas, tipo
 CREATE TABLE Component (
     ID          NUMERIC(9) PRIMARY KEY,
-    name        VARCHAR(25) NOT NULL,
-    quantity    NUMERIC(9) NOT NULL,
-    price       NUMERIC(9) NOT NULL,
+    brand       VARCHAR(25) NOT NULL,
+    model       VARCHAR(50) NOT NULL,
+    price       NUMERIC(9,2)  NOT NULL,
+    discount    NUMERIC(4,2)  NOT NULL,
+    description VARCHAR(100),
+    quantity    NUMERIC(9)  NOT NULL,
+    numberSales NUMERIC(9)  NOT NULL,
     type        component_type NOT NULL
 );
 
 CREATE TABLE Products (
     ID          NUMERIC(9) PRIMARY KEY,
     name        VARCHAR(25) NOT NULL,
-    description VARCHAR(25),
+    description VARCHAR(50),
     quantity    NUMERIC(9) NOT NULL,
-    price       NUMERIC(9) NOT NULL,
+    price       NUMERIC(9,2) NOT NULL,
     url         VARCHAR(50) NOT NULL UNIQUE,
     image       VARCHAR(50) NOT NULL
 );
@@ -42,6 +48,9 @@ CREATE TABLE consists_of (
     FOREIGN KEY (componentID) REFERENCES Component(ID),
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
+COPY Component (ID, name, quantity, price, type) 
+FROM 'C:\Users\jesus\Downloads\pc_arp_-_producto.csv'
+DELIMITER ',';
 
 CREATE VIEW product_component AS (
     SELECT p.ID AS productID, c.ID AS componentID, c.name AS componentName, 

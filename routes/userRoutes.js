@@ -26,7 +26,7 @@ router.post('/users', async (req, res) => {
 });
 
 // From here the request must have a valid token
-router.use(verifyToken);
+//router.use(verifyToken);
 
 router.get('/users', async (req, res) => {
   res.send((await user.getAllUsers()).rows);

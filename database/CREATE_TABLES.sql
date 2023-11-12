@@ -13,7 +13,9 @@ CREATE TABLE Users (
     address     VARCHAR(25)
 );
 
-CREATE TYPE component_type AS ENUM ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 'Power supply', 'Case', 'Cooling', 'Other');
+CREATE TYPE component_type AS ENUM 
+    ('CPU', 'GPU', 'RAM', 'Motherboard', 'Storage', 
+     'Power supply', 'Case', 'Cooling', 'Other');
 
 CREATE TABLE Component (
     ID          NUMERIC(9) PRIMARY KEY,
@@ -33,6 +35,22 @@ CREATE TABLE Products (
     image       VARCHAR(50) NOT NULL
 );
 
+CREATE TABLE consists_of (
+    componentID    NUMERIC(9),
+    productID      NUMERIC(9),
+    PRIMARY KEY (componentID, productID),
+    FOREIGN KEY (componentID) REFERENCES Component(ID),
+    FOREIGN KEY (productID) REFERENCES Products(ID)
+);
+
+CREATE VIEW product_component AS (
+    SELECT p.ID AS productID, c.ID AS componentID, c.name AS componentName, 
+        c.type AS componentType
+    FROM Products p
+    JOIN consists_of co ON p.ID = co.productID
+    JOIN Component c ON co.componentID = c.ID
+);
+
 CREATE TABLE has_in_shopping_cart (
     userID      NUMERIC(9),
     productID   NUMERIC(9),
@@ -42,7 +60,8 @@ CREATE TABLE has_in_shopping_cart (
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
-CREATE TYPE order_status AS ENUM ('Not prepared', 'In preparation', 'Sent', 'Delivered');
+CREATE TYPE order_status AS ENUM 
+    ('Not prepared', 'In preparation', 'Sent', 'Delivered');
 
 CREATE TABLE Orders (
     ID           NUMERIC(9) PRIMARY KEY,
@@ -65,13 +84,5 @@ CREATE TABLE Category (
     productID    NUMERIC(9),
     category     VARCHAR(25),
     PRIMARY KEY (productID, category),
-    FOREIGN KEY (productID) REFERENCES Products(ID)
-);
-
-CREATE TABLE consists_of (
-    componentID    NUMERIC(9),
-    productID      NUMERIC(9),
-    PRIMARY KEY (componentID, productID),
-    FOREIGN KEY (componentID) REFERENCES Component(ID),
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );

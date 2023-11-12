@@ -48,12 +48,10 @@ CREATE TABLE consists_of (
     FOREIGN KEY (componentID) REFERENCES Component(ID),
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
-COPY Component (ID, name, quantity, price, type) 
-FROM 'C:\Users\jesus\Downloads\pc_arp_-_producto.csv'
-DELIMITER ',';
+
 
 CREATE VIEW product_component AS (
-    SELECT p.ID AS productID, c.ID AS componentID, c.name AS componentName, 
+    SELECT p.ID AS productID, c.ID AS componentID, c.brand || ' ' || c.model AS componentName, 
         c.type AS componentType
     FROM Products p
     JOIN consists_of co ON p.ID = co.productID

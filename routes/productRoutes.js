@@ -15,7 +15,7 @@ router.get('/products/:id', async (req, res) => {
 
 // POST requests
 router.post('/products/search', async (req, res) => {
-  res.send((await product.search()).rows);
+  res.send((await product.search(req.params.cpu, req.params.ram, req.params.graphics, req.params.storage)).rows);
 })
 
 router.post('/products', async (req, res) => {

@@ -48,22 +48,22 @@ const search = async (cpu, ram, graphics, storage) => {
       WHERE P.ID IN (\
         SELECT PC.productID \
         FROM product_component PC\
-        WHERE PC.name = '+cpu+' AND PC.componentType = "CPU"\
+        WHERE PC.componentName = "'+cpu+'" AND PC.componentType = "procesador"\
       ) \
       AND P.ID IN (\
         SELECT PC.productID \
         FROM product_component PC\
-        WHERE PC.name = '+ram+' AND PC.componentType = "RAM"\
+        WHERE PC.componentName = "'+ram+'" AND PC.componentType = "ram"\
       )\
       AND P.ID IN (\
         SELECT PC.productID \
         FROM product_component PC\
-        WHERE PC.name = '+graphics+' AND PC.componentType = "GPU"\
+        WHERE PC.componentName = "'+graphics+'" AND PC.componentType = "grafica"\
       )\
       AND P.ID IN (\
         SELECT PC.productID \
         FROM product_component PC\
-        WHERE PC.name = '+storage+' AND PC.componentType = "Storage"\
+        WHERE PC.componentName = "'+storage+'" AND PC.componentType = "disco_duro"\
       )\
     ');
     return result;
@@ -80,5 +80,6 @@ module.exports = {
   getAllProducts,
   getProductById,
   updateProductById,
-  deleteProductById
+  deleteProductById,
+  search
 };

@@ -11,12 +11,15 @@ router.get('/products', async (req, res) => {
 
 router.get('/products/:id', async (req, res) => {
   res.send(await product.getProductById(req.params.id));
-});
-
+})
 
 // POST requests
+router.post('/products/search', async (req, res) => {
+  res.send((await product.search()).rows);
+})
+
 router.post('/products', async (req, res) => {
-  const { name, description, quantity, price, url, image} = req.body;
+  const { name, description, quantity, price, url, image } = req.body;
 
   // Check request parameters (AÑADIR MÁS CHECKEOS!!!)
   // if (!name || !password || !email || !address) {

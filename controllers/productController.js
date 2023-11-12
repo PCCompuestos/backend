@@ -40,6 +40,39 @@ const deleteProductById = async (productId) => {
   return result;
 }
 
+const search = async (cpu, ram, graphics, storage) => {
+  try {
+    const result = await db.query('\
+      SELECT P.* \
+      FROM Products P\
+      WHERE P.ID IN (\
+        SELECT PC.productID \
+        FROM product_component PC\
+        WHERE PC.name = '+cpu+' AND PC.componentType = "CPU"\
+      ) \
+      AND P.ID IN (\
+        SELECT PC.productID \
+        FROM product_component PC\
+        WHERE PC.name = '+ram+' AND PC.componentType = "RAM"\
+      )\
+      AND P.ID IN (\
+        SELECT PC.productID \
+        FROM product_component PC\
+        WHERE PC.name = '+graphics+' AND PC.componentType = "GPU"\
+      )\
+      AND P.ID IN (\
+        SELECT PC.productID \
+        FROM product_component PC\
+        WHERE PC.name = '+storage+' AND PC.componentType = "Storage"\
+      )\
+    ');
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
+
 // Other methods...
 
 module.exports = {

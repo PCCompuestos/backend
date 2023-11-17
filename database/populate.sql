@@ -1,5 +1,4 @@
 
-
 INSERT INTO Users (ID, name, password, isAdmin, email, address)
 VALUES 
     (nextval('userSeq'), 'admin', 'admin', true, 'admin@admin.com', 'c/Admin, 1, 4ºA'),
@@ -11,7 +10,9 @@ VALUES
 -- Products
 INSERT INTO Products (ID, name, description, quantity, price, url, image) 
 VALUES 
-    (nextval('productSeq'), 'Product1', 'This is product 1', 10, 100, 'url1', 'image1');
+    (nextval('productSeq'), 'Product1', 'This is product 1', 10, 100, 'product1', 'image1'),
+    (nextval('productSeq'), 'Product2', 'This is product 2', 5, 199.99, 'product2', 'image1'),
+    (nextval('productSeq'), 'Product3', 'This is product 3', 3, 221.99, 'product3', 'image1');
 
 -- has_in_shopping_cart
 INSERT INTO has_in_shopping_cart (userID, productID, quantity) 

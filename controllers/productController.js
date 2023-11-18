@@ -31,6 +31,7 @@ const getAllProducts = async () => {
 const getProductByUrl = async (productUrl) => {
   try {
     const result = await db.query('SELECT * FROM Products WHERE url = $1', [productUrl]);
+    // console.log(result.rows[0]);
     return result.rows[0];
   } catch (error) {
     console.error('Fatal error: ', error);

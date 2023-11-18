@@ -14,3 +14,15 @@ fetch('http://localhost:3001/users', {
 .then(response => response.json())
 .then(data => console.log(data))
 .catch(error => console.error('Error:', error));
+
+
+
+fetch('http://localhost:3001/products', {
+  method: 'GET',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));

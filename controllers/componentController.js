@@ -1,14 +1,14 @@
 const db = require('../db');
 
-const createComponent = async (name, quantity, price) => {
-  const result = await db.query(`INSERT INTO Component(code, name, quantity, price) VALUES(nextval('componentSeq'), $1, $2, $3) RETURNING *`, [name, quantity, price]);
+const createComponent = async (brand, model, description, quantity, price) => {
+  const result = await db.query(`INSERT INTO Component(id, brand, model, description, quantity, price, discount, numbersales, type) VALUES(nextval('componentSeq'), $1, $2, $3, $4, $5, 0, 0, 'procesador') RETURNING *`, [brand, model, description, quantity, price]);
   return result;
 }
 
 // Operación CRUD: Read_1
 const getAllComponents = async () => {
   try {
-    const result = await db.query('SELECT * FROM Component');
+    const result = await db.query('SELECT * FROM Component ORDER BY id ASC');
     return result;
   } catch (error) {
     console.error('Fatal error: ', error);
@@ -28,8 +28,8 @@ const getComponentById = async (code) => {
 }
 
 // Operación CRUD: Update
-const updateComponentById = async (code, name, quantity, price) => {
-  const result = await db.query('UPDATE Component SET code = $2, name = $3, quantity = $4, price = $5 WHERE code = $1 RETURNING *', [code, name, quantity, price]);
+const updateComponentById = async (id, brand, model, description, quantity, price) => {
+  const result = await db.query('UPDATE Component SET brand = $2, model = $3, description = $4, quantity = $5, price = $6 WHERE id = $1 RETURNING *', [id, brand, model, description, quantity, price]);
   return result.rows[0];
 }
 

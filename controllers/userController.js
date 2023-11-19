@@ -17,7 +17,7 @@ const createUser = async (name, password, isAdmin, email, address) => {
 
 const getAllUsers = async () => {
   try {
-    const result = await db.query('SELECT * FROM Users');
+    const result = await db.query('SELECT * FROM Users ORDER BY id ASC');
     return result;
   } catch (error) {
     console.error('Fatal error: ', error);

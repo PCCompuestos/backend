@@ -41,8 +41,8 @@ const getProductByUrl = async (productUrl) => {
   
 
 // Operación CRUD: Update
-const updateProductById = async (productId, name, description, quantity, price) => {
-  const result = await db.query('UPDATE Products SET name = $2, description = $3, quantity = $4, price = $5 WHERE id = $1 RETURNING *', [productId, name, description, quantity, price]);
+const updateProductById = async (productId, name, description, quantity, price, url, image) => {
+  const result = await db.query('UPDATE Products SET name = $2, description = $3, quantity = $4, price = $5, url = $6, image = $7 WHERE id = $1 RETURNING *', [productId, name, description, quantity, price, url, image]);
   return result.rows[0];
 }
 

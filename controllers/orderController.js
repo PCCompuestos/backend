@@ -17,10 +17,21 @@ const getAllOrders = async () => {
 }
 
 // Operación CRUD: Read_2
-const getOrderById = async (orderId) => {
+// const getOrderById = async (orderId) => {
+//   try {
+//     const result = await db.query('SELECT * FROM Orders WHERE id = $1', [orderId]);
+//     return result.rows[0];
+//   } catch (error) {
+//     console.error('Fatal error: ', error);
+//     throw error;
+//   }
+// }
+
+// Operación CRUD: Read_3
+const getOrderByUserId = async (userId) => {
   try {
-    const result = await db.query('SELECT * FROM Orders WHERE id = $1', [orderId]);
-    return result.rows[0];
+    const result = await db.query('SELECT * FROM Orders WHERE userID = $1', [userId]);
+    return result;
   } catch (error) {
     console.error('Fatal error: ', error);
     throw error;
@@ -49,7 +60,8 @@ const deleteOrderById = async (orderId) => {
 module.exports = {
   createOrder,
   getAllOrders,
-  getOrderById,
+  // getOrderById,
+  getOrderByUserId,
   updateOrderById,
   updateOrderStatusById,
   deleteOrderById

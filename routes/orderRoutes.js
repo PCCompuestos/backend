@@ -10,7 +10,7 @@ router.get('/orders', async (req, res) => {
 });
 
 router.get('/orders/:id', async (req, res) => {
-  res.send(await order.getOrderById(req.params.id));
+  res.send((await order.getOrderByUserId(req.params.id)).rows);
 });
 
 

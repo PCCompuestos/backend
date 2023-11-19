@@ -10,9 +10,9 @@ VALUES
 -- Products
 INSERT INTO Products (ID, name, description, quantity, price, url, image) 
 VALUES 
-    (nextval('productSeq'), 'Product1', 'This is product 1', 10, 100, 'product1Url', 'image1'),
-    (nextval('productSeq'), 'Product2', 'This is product 2', 5, 199.99, 'product2Url', 'image2'),
-    (nextval('productSeq'), 'Product3', 'This is product 3', 3, 221.99, 'product3Url', 'image3');
+    (nextval('productSeq'), 'HP 15S-FQ5085NS', 'This is product 1', 10, 100, 'hpExample', '../images/hp.webp'),
+    (nextval('productSeq'), 'Lenovo IdeaPad 3', 'This is product 2', 5, 199.99, 'lenovoExample', '../images/lenovo.webp'),
+    (nextval('productSeq'), 'MSI Pulse 15', 'This is product 3', 3, 221.99, 'msiExample', '../images/msi.webp');
 
 -- has_in_shopping_cart
 INSERT INTO has_in_shopping_cart (userID, productID, quantity) 
@@ -22,12 +22,14 @@ VALUES
 -- Orders
 INSERT INTO Orders (ID, userID, purchaseDate, status) 
 VALUES 
-    (nextval('orderSeq'), 1, '2023-10-10', 'Not prepared');
+    (nextval('orderSeq'), 1, '2023-10-10', 'Not prepared'),
+    (nextval('orderSeq'), 1, '2023-10-11', 'Sent');
 
 -- order_contains
 INSERT INTO order_contains (orderID, productID, quantity) 
 VALUES 
-    (1, 1, 2);
+    (1, 1, 2),
+    (2, 3, 1);
 
 -- Category
 INSERT INTO Category (productID, category) 

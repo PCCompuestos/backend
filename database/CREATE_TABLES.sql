@@ -2,7 +2,7 @@
 CREATE SEQUENCE userSeq start 1 increment 1;
 CREATE SEQUENCE productSeq start 1 increment 1;
 CREATE SEQUENCE orderSeq start 1 increment 1;
-CREATE SEQUENCE componentSeq start 1 increment 1;
+CREATE SEQUENCE componentSeq start 1000 increment 1;
 
 CREATE TABLE Users (
     ID          NUMERIC(9) PRIMARY KEY,
@@ -28,7 +28,7 @@ CREATE TABLE Component (
     description VARCHAR(100),
     quantity    NUMERIC(9)  NOT NULL,
     numberSales NUMERIC(9)  NOT NULL,
-    type        component_type NOT NULL
+    type        component_type
 );
 
 CREATE TABLE Products (

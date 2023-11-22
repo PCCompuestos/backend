@@ -35,8 +35,8 @@ const updateComponentById = async (id, brand, model, description, quantity, pric
 
 
 // Operación CRUD: Delete
-const deleteComponentById = async (code) => {
-  const result = await db.query('DELETE FROM Component WHERE code = $1 RETURNING *', [code]);
+const deleteComponentById = async (id) => {
+  const result = await db.query('DELETE FROM Component WHERE id = $1 RETURNING *', [id]);
   return result;
 }
 

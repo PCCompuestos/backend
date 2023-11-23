@@ -38,7 +38,7 @@ const getProductByUrl = async (productUrl) => {
     throw error;
   }
 }
-  
+
 
 // Operación CRUD: Update
 const updateProductById = async (productId, name, description, quantity, price, url, image) => {
@@ -55,30 +55,30 @@ const deleteProductById = async (productId) => {
 
 const search = async (cpu, ram, graphics, storage) => {
   try {
-    const result = await db.query('\
-      SELECT P.* \
-      FROM Products P\
-      WHERE P.ID IN (\
-        SELECT PC.productID \
-        FROM product_component PC\
-        WHERE PC.componentName = "'+cpu+'" AND PC.componentType = "procesador"\
-      ) \
-      AND P.ID IN (\
-        SELECT PC.productID \
-        FROM product_component PC\
-        WHERE PC.componentName = "'+ram+'" AND PC.componentType = "ram"\
-      )\
-      AND P.ID IN (\
-        SELECT PC.productID \
-        FROM product_component PC\
-        WHERE PC.componentName = "'+graphics+'" AND PC.componentType = "grafica"\
-      )\
-      AND P.ID IN (\
-        SELECT PC.productID \
-        FROM product_component PC\
-        WHERE PC.componentName = "'+storage+'" AND PC.componentType = "disco_duro"\
-      )\
-    ');
+    const result = await db.query(`
+      SELECT P.*
+      FROM Products P
+      WHERE P.ID IN (
+        SELECT PC.productID 
+        FROM product_component PC
+        WHERE PC.componentName = '`+ cpu + `' AND PC.componentType = 'procesador'
+      ) 
+      AND P.ID IN (
+        SELECT PC.productID 
+        FROM product_component PC
+        WHERE PC.componentName = '`+ ram + `' AND PC.componentType = 'ram'
+      )
+      AND P.ID IN (
+        SELECT PC.productID 
+        FROM product_component PC
+        WHERE PC.componentName = '`+ graphics + `' AND PC.componentType = 'grafica'
+      )
+      AND P.ID IN (
+        SELECT PC.productID 
+        FROM product_component PC
+        WHERE PC.componentName = '`+ storage + `' AND PC.componentType = 'disco_duro'
+      )
+    `);
     return result;
   } catch (error) {
     console.error('Fatal error: ', error);

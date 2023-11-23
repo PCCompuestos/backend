@@ -13,10 +13,6 @@ CREATE TABLE Users (
     address     VARCHAR(25)
 );
 
-CREATE TYPE component_type AS ENUM 
-    ('procesador', 'grafica', 'ram', 'placa_base', 'disco_duro', 
-     'fuente_alimentacion', 'caja_torre', 'ventilador');
-
 
 -- id_producto, marca, modelo, precio, descuento, descripcion, stock, ventas, tipo
 CREATE TABLE Component (
@@ -28,7 +24,9 @@ CREATE TABLE Component (
     description VARCHAR(100),
     quantity    NUMERIC(9)  NOT NULL,
     numberSales NUMERIC(9)  NOT NULL,
-    type        component_type
+    type        VARCHAR(25) NOT NULL 
+                CHECK (type IN ('procesador', 'grafica', 'ram', 'placa_base', 'disco_duro', 
+                                'fuente_alimentacion', 'caja_torre', 'ventilador'))
 );
 
 CREATE TABLE Products (
@@ -67,14 +65,12 @@ CREATE TABLE has_in_shopping_cart (
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );
 
-CREATE TYPE order_status AS ENUM 
-    ('Not prepared', 'In preparation', 'Sent', 'Delivered');
 
 CREATE TABLE Orders (
     ID           NUMERIC(9) PRIMARY KEY,
     userID       NUMERIC(9) NOT NULL,
     purchaseDate TIMESTAMP NOT NULL,
-    status       order_status NOT NULL,
+    status       VARCHAR(20) NOT NULL CHECK (status IN ('Not prepared', 'In preparation', 'Sent', 'Delivered')),
     FOREIGN KEY  (userID) REFERENCES Users(ID)
 );
 
@@ -83,13 +79,6 @@ CREATE TABLE order_contains (
     productID   NUMERIC(9),
     quantity    NUMERIC(9) NOT NULL,
     PRIMARY KEY (orderID, productID),
-    FOREIGN KEY (orderID) REFERENCES Orders(ID),
-    FOREIGN KEY (productID) REFERENCES Products(ID)
-);
-
-CREATE TABLE Category (
-    productID    NUMERIC(9),
-    category     VARCHAR(25),
-    PRIMARY KEY (productID, category),
+    FOREIGN KEY (orderID) REFERENCES Orders(ID) ON DELETE CASCADE,
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );

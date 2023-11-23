@@ -2,7 +2,7 @@
 INSERT INTO Users (ID, name, password, isAdmin, email, address)
 VALUES 
     (nextval('userSeq'), 'admin', 'admin', true, 'admin@admin.com', 'c/Admin, 1, 4ºA'),
-    (nextval('userSeq'), 'sin', 'anson', false, 'javierito@putoUnai.com', 'c/Maria de Luna, 22');
+    (nextval('userSeq'), 'sin', 'anson', false, 'javierito@yubi.com', 'c/Maria de Luna, 22');
 
 -- Component
 -- populate_component.sql
@@ -32,19 +32,19 @@ VALUES
     (2, 3, 1);
 
 -- Category
-INSERT INTO Category (productID, category) 
-VALUES 
-    (1, 'Category1');
+-- INSERT INTO Category (productID, category) 
+-- VALUES 
+--     (1, 'Category1');
 
 -- consists_of
 INSERT INTO consists_of (productID, componentID) 
 VALUES 
     (1, 1),
-    (1, 2),
-    (1, 3),
-    (1, 4),
-    (1, 5),
-    (1, 6),
-    (1, 7),
-    (1, 8),
-    (1, 9);
+    (2, 2),
+    (1, 301),
+    (2, 302),
+    (1, 201),
+    (2, 202),
+    (1, 101),
+    (2, 102)
+    ;

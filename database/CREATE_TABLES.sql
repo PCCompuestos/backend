@@ -83,13 +83,6 @@ CREATE TABLE order_contains (
     productID   NUMERIC(9),
     quantity    NUMERIC(9) NOT NULL,
     PRIMARY KEY (orderID, productID),
-    FOREIGN KEY (orderID) REFERENCES Orders(ID),
-    FOREIGN KEY (productID) REFERENCES Products(ID)
-);
-
-CREATE TABLE Category (
-    productID    NUMERIC(9),
-    category     VARCHAR(25),
-    PRIMARY KEY (productID, category),
+    FOREIGN KEY (orderID) REFERENCES Orders(ID) ON DELETE CASCADE,
     FOREIGN KEY (productID) REFERENCES Products(ID)
 );

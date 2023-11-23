@@ -17,15 +17,15 @@ const getAllProducts = async () => {
 }
 
 // Operación CRUD: Read_2
-// const getProductById = async (productId) => {
-//   try {
-//     const result = await db.query('SELECT * FROM Products WHERE id = $1', [productId]);
-//     return result.rows[0];
-//   } catch (error) {
-//     console.error('Fatal error: ', error);
-//     throw error;
-//   }
-// }
+const getProductById = async (productId) => {
+  try {
+    const result = await db.query('SELECT * FROM Products WHERE id = $1', [productId]);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
 
 // Operación CRUD: Read_3
 const getProductByUrl = async (productUrl) => {
@@ -91,7 +91,7 @@ const search = async (cpu, ram, graphics, storage) => {
 module.exports = {
   createProduct,
   getAllProducts,
-  // getProductById,
+  getProductById,
   getProductByUrl,
   updateProductById,
   deleteProductById,

@@ -9,9 +9,9 @@ router.get('/products', async (req, res) => {
   res.send((await product.getAllProducts()).rows);
 });
 
-// router.get('/products/:id', async (req, res) => {
-//   res.send(await product.getProductById(req.params.id));
-// })
+router.get('/products/id/:id', async (req, res) => {
+  res.send(await product.getProductById(req.params.id));
+})
 
 router.get('/products/:url', async (req, res) => {
   res.send(await product.getProductByUrl(req.params.url));

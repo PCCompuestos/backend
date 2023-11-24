@@ -50,6 +50,11 @@ const updateUserById = async (userId, name, password, isadmin, email, address) =
   return result.rows[0];
 }
 
+const updateUserByUsername = async (id, _name) => {
+  const result = await db.query('UPDATE Users SET name = $2 WHERE id = $1 RETURNING *', [id, _name]);
+  return result.rows[0];
+}
+
 const deleteUserById = async (userId) => {
   const result = await db.query('DELETE FROM Users WHERE id = $1 RETURNING *', [userId]);
   return result;
@@ -95,6 +100,7 @@ module.exports = {
   getUserById,
   getUserByEmail,
   updateUserById,
+  updateUserByUsername,
   deleteUserById,
   login
 };

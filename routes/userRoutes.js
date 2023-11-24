@@ -42,6 +42,12 @@ router.put('/users/:id', async (req, res) => {
   res.send(await user.updateUserById(req.params.id, name, password, isadmin, email, address));
 });
 
+router.put('/users/:id/setName', async (req, res) => {
+  const { name } = req.body;
+
+  res.send(await user.updateUserByUsername(req.params.id, name));
+});
+
 router.delete('/users/:id', async (req, res) => {
   res.send(await user.deleteUserById(req.params.id));
 });

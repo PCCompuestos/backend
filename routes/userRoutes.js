@@ -37,9 +37,9 @@ router.get('/users/:id', async (req, res) => {
 });
 
 router.put('/users/:id', async (req, res) => {
-  const { name, password, isadmin, email, address } = req.body;
+  const { name } = req.body;
 
-  res.send(await user.updateUserById(req.params.id, name, password, isadmin, email, address));
+  res.send(await user.updateUsernameById(req.params.id, name));
 });
 
 router.delete('/users/:id', async (req, res) => {

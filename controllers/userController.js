@@ -45,8 +45,8 @@ const getUserByEmail = async (userEmail) => {
   }
 }
 
-const updateUserById = async (userId, name, password, isadmin, email, address) => {
-  const result = await db.query('UPDATE Users SET name = $2, password = $3, isadmin = $4, email = $5, address = $6 WHERE id = $1 RETURNING *', [userId, name, password, isadmin, email, address]);
+const updateUsernameById = async (userId, name) => {
+  const result = await db.query('UPDATE Users SET name = $2 WHERE id = $1 RETURNING *', [userId, name]);
   return result.rows[0];
 }
 
@@ -99,7 +99,7 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserByEmail,
-  updateUserById,
+  updateUsernameById,
   updateUserByUsername,
   deleteUserById,
   login

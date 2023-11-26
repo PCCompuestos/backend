@@ -1,8 +1,13 @@
 const db = require('../db');
 
 const createCategory = async (productID, category) => {
-  const result = await db.query(`INSERT INTO Category(productID, category) VALUES($1, $2) RETURNING *`, [productID, category]);
-  return result;
+  try{
+    const result = await db.query(`INSERT INTO Category(productID, category) VALUES($1, $2) RETURNING *`, [productID, category]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 // Operación CRUD: Read_1
@@ -29,15 +34,25 @@ const getAllCategories = async () => {
 
 // Operación CRUD: Update
 const updateCategoryById = async (productID, category) => {
-  const result = await db.query('UPDATE Category SET category = $2 WHERE productID = $1 RETURNING *', [productID, category]);
-  return result.rows[0];
+  try{
+    const result = await db.query('UPDATE Category SET category = $2 WHERE productID = $1 RETURNING *', [productID, category]);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 
 // Operación CRUD: Delete
 const deleteCategoryById = async (productID) => {
-  const result = await db.query('DELETE FROM Category WHERE productID = $1 RETURNING *', [productID]);
-  return result;
+  try{
+    const result = await db.query('DELETE FROM Category WHERE productID = $1 RETURNING *', [productID]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 // Other methods...

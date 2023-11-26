@@ -12,7 +12,13 @@ const createUser = async (name, password, isAdmin, email, address) => {
       return await db.query(`INSERT INTO Users(id, name, password, isAdmin, email, address) VALUES(nextval('userSeq'), $1, $2, $3, $4, $5) RETURNING *`, [name, hash, isAdmin, email, address]);
     }
   });*/
-  return await db.query(`INSERT INTO Users(id, name, password, isAdmin, email, address) VALUES(nextval('userSeq'), $1, $2, $3, $4, $5) RETURNING *`, [name, password, isAdmin, email, address]);
+  try{
+    const result = await db.query(`INSERT INTO Users(id, name, password, isAdmin, email, address) VALUES(nextval('userSeq'), $1, $2, $3, $4, $5) RETURNING *`, [name, password, isAdmin, email, address]);
+    return result
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 const getAllUsers = async () => {
@@ -77,8 +83,13 @@ const updateUserPassword = async (id, password) => {
 }
 
 const deleteUserById = async (userId) => {
-  const result = await db.query('DELETE FROM Users WHERE id = $1 RETURNING *', [userId]);
-  return result;
+  try{
+    const result = await db.query('DELETE FROM Users WHERE id = $1 RETURNING *', [userId]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 const login = async (email, enteredPassword) => {

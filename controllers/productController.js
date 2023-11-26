@@ -1,11 +1,15 @@
 const db = require('../db');
 
 const createProduct = async (name, description, quantity, price, url, image) => {
-  const result = await db.query(`INSERT INTO Products(id, name, description, quantity, price, URL, image) VALUES(nextval('productSeq'), $1, $2, $3, $4, $5, $6) RETURNING *`, [name, description, quantity, price, url, image]);
-  return result;
+  try {
+    const result = await db.query(`INSERT INTO Products(id, name, description, quantity, price, URL, image) VALUES(nextval('productSeq'), $1, $2, $3, $4, $5, $6) RETURNING *`, [name, description, quantity, price, url, image]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
-// Operación CRUD: Read_1
 const getAllProducts = async () => {
   try {
     const result = await db.query('SELECT * FROM Products');
@@ -16,7 +20,6 @@ const getAllProducts = async () => {
   }
 }
 
-// Operación CRUD: Read_2
 const getProductById = async (productId) => {
   try {
     const result = await db.query('SELECT * FROM Products WHERE id = $1', [productId]);
@@ -27,7 +30,6 @@ const getProductById = async (productId) => {
   }
 }
 
-// Operación CRUD: Read_3
 const getProductByUrl = async (productUrl) => {
   try {
     const result = await db.query('SELECT * FROM Products WHERE url = $1', [productUrl]);
@@ -39,18 +41,39 @@ const getProductByUrl = async (productUrl) => {
   }
 }
 
+const getProductComponentsById = async (productId) => {
+  try {
+    const result = await db.query('SELECT * FROM product_component WHERE productid = $1', [productId]);
+    return result.rows;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
 
-// Operación CRUD: Update
 const updateProductById = async (productId, name, description, quantity, price, url, image) => {
   const result = await db.query('UPDATE Products SET name = $2, description = $3, quantity = $4, price = $5, url = $6, image = $7 WHERE id = $1 RETURNING *', [productId, name, description, quantity, price, url, image]);
   return result.rows[0];
 }
 
-
-// Operación CRUD: Delete
 const deleteProductById = async (productId) => {
-  const result = await db.query('DELETE FROM Products WHERE id = $1 RETURNING *', [productId]);
-  return result;
+  try {
+    const result = await db.query('DELETE FROM Products WHERE id = $1 RETURNING *', [productId]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
+
+const deleteProductComponentsById = async (productId, componentId) => {
+  try {
+    const result = await db.query('DELETE FROM consists_of WHERE productid = $1 AND componentid = $2 RETURNING *', [productId, componentId]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 const search = async (cpu, ram, graphics, storage) => {
@@ -93,7 +116,9 @@ module.exports = {
   getAllProducts,
   getProductById,
   getProductByUrl,
+  getProductComponentsById,
   updateProductById,
   deleteProductById,
+  deleteProductComponentsById,
   search
 };

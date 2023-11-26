@@ -17,6 +17,10 @@ router.get('/products/:url', async (req, res) => {
   res.send(await product.getProductByUrl(req.params.url));
 })
 
+router.get('/products/:id/components', async (req, res) => {
+  res.send(await product.getProductComponentsById(req.params.id));
+})
+
 // POST requests
 router.post('/products/search', async (req, res) => {
   const { cpu, ram, graphics, storage } = req.body;
@@ -48,5 +52,8 @@ router.delete('/products/:id', async (req, res) => {
   res.send(await product.deleteProductById(req.params.id));
 });
 
+router.delete('/products/:productId/components/:componentId', async (req, res) => {
+  res.send(await product.deleteProductComponentsById(req.params.productId, req.params.componentId));
+})
 
 module.exports = router;

@@ -36,17 +36,24 @@ router.get('/users/:id', async (req, res) => {
   res.send(await user.getUserById(req.params.id));
 });
 
-router.put('/users/:id', async (req, res) => {
-  const { name } = req.body;
-
-  res.send(await user.updateUsernameById(req.params.id, name));
-});
+// router.put('/users/:id', async (req, res) => {
+//   const { name } = req.body;
+//   console.log(name);
+//   res.send(await user.updateUsernameById(req.params.id, name));
+// });
 
 router.put('/users/:id/setName', async (req, res) => {
   const { name } = req.body;
 
   res.send(await user.updateUserByUsername(req.params.id, name));
 });
+
+router.put('/users/:id/setPassword', async (req, res) => {
+  const { password } = req.body;
+
+  res.send(await user.updateUserPassword(req.params.id, password));
+});
+
 
 router.delete('/users/:id', async (req, res) => {
   res.send(await user.deleteUserById(req.params.id));

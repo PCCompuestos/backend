@@ -45,14 +45,35 @@ const getUserByEmail = async (userEmail) => {
   }
 }
 
-const updateUsernameById = async (userId, name) => {
-  const result = await db.query('UPDATE Users SET name = $2 WHERE id = $1 RETURNING *', [userId, name]);
-  return result.rows[0];
+// const updateUsernameById = async (userId, name) => {
+//   try{
+//     console.log(name);
+//     const result = await db.query('UPDATE Users SET name = $2 WHERE id = $1 RETURNING *', [userId, name]);
+//     return result.rows[0];
+//   } catch(error){
+//     console.error('Fatal error: ', error);
+//     throw error;
+//   }
+// }
+
+const updateUserByUsername = async (id, name) => {
+  try{
+    const result = await db.query('UPDATE Users SET name = $2 WHERE id = $1 RETURNING *', [id, name]);
+    return result.rows[0];
+  } catch(error){
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
-const updateUserByUsername = async (id, _name) => {
-  const result = await db.query('UPDATE Users SET name = $2 WHERE id = $1 RETURNING *', [id, _name]);
-  return result.rows[0];
+const updateUserPassword = async (id, password) => {
+  try{
+    const result = await db.query('UPDATE Users SET password = $2 WHERE id = $1 RETURNING *', [id, password]);
+    return result.rows[0];
+  } catch(error){
+    console.error('Fatal error: ', error);
+    throw error;
+  }
 }
 
 const deleteUserById = async (userId) => {
@@ -99,8 +120,9 @@ module.exports = {
   getAllUsers,
   getUserById,
   getUserByEmail,
-  updateUsernameById,
+  // updateUsernameById,
   updateUserByUsername,
+  updateUserPassword,
   deleteUserById,
   login
 };

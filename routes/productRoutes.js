@@ -38,6 +38,9 @@ router.post('/products', async (req, res) => {
   res.send(await product.createProduct(name, description, quantity, price, url, image));
 });
 
+router.post('/products/:productId/components/:componentId', async (req, res) => {
+  res.send(await product.addComponentToProduct(req.params.productId, req.params.componentId));
+})
 
 // PUT requests
 router.put('/products/:id', async (req, res) => {

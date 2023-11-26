@@ -66,6 +66,16 @@ const deleteProductById = async (productId) => {
   }
 }
 
+const addComponentToProduct = async (productId, componentId) => {
+  try {
+    const result = await db.query(`INSERT INTO consists_of(componentid, productid) VALUES($1, $2) RETURNING *`, [productId, componentId]);
+    return result;
+  } catch (error) {
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
+
 const deleteProductComponentsById = async (productId, componentId) => {
   try {
     const result = await db.query('DELETE FROM consists_of WHERE productid = $1 AND componentid = $2 RETURNING *', [productId, componentId]);
@@ -120,5 +130,6 @@ module.exports = {
   updateProductById,
   deleteProductById,
   deleteProductComponentsById,
+  addComponentToProduct,
   search
 };

@@ -10,8 +10,11 @@ COPY . .
 # Install dependencies
 RUN npm install
 
+RUN npm install pm2 -g
+
 # Expose the port that the app will run on
 EXPOSE 3001
 
 # Command to run the application
-CMD ["node", "app.js"]
+#CMD ["node", "app.js"]
+CMD ["pm2", "start", "app.js"]

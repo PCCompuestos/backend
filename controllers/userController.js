@@ -82,6 +82,16 @@ const updateUserPassword = async (id, password) => {
   }
 }
 
+const updateUserAdmin = async (id) => {
+  try{
+    const result = await db.query('UPDATE Users SET isAdmin = true WHERE id = $1 RETURNING *', [id]);
+    return result.rows[0];
+  } catch(error){
+    console.error('Fatal error: ', error);
+    throw error;
+  }
+}
+
 const deleteUserById = async (userId) => {
   try{
     const result = await db.query('DELETE FROM Users WHERE id = $1 RETURNING *', [userId]);
@@ -134,6 +144,7 @@ module.exports = {
   // updateUsernameById,
   updateUserByUsername,
   updateUserPassword,
+  updateUserAdmin,
   deleteUserById,
   login
 };

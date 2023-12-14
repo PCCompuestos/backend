@@ -54,6 +54,10 @@ router.put('/users/:id/setPassword', async (req, res) => {
   res.send(await user.updateUserPassword(req.params.id, password));
 });
 
+router.put('/users/:id/setAdmin', async (req, res) => {
+  res.send(await user.updateUserAdmin(req.params.id));
+});
+
 
 router.delete('/users/:id', async (req, res) => {
   res.send(await user.deleteUserById(req.params.id));

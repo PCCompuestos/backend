@@ -68,7 +68,7 @@ const deleteProductById = async (productId) => {
 
 const addComponentToProduct = async (productId, componentId) => {
   try {
-    const result = await db.query(`INSERT INTO consists_of(componentid, productid) VALUES($1, $2) RETURNING *`, [productId, componentId]);
+    const result = await db.query(`INSERT INTO consists_of(componentid, productid) VALUES($2, $1) RETURNING *`, [productId, componentId]);
     return result;
   } catch (error) {
     console.error('Fatal error: ', error);
